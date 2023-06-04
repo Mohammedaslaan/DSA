@@ -1,0 +1,70 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool isPrime(int number) {
+    if (number <= 1)
+        return false;
+
+    for (int i = 2; i * i <= number; i++) {
+        if (number % i == 0)
+            return false;
+    }
+
+    return true;
+}
+
+vector<int> ListPrime( int numberTo,int start = 2) {
+    std::vector<int> listOfPrimes;
+    if(start<= numberTo){
+        
+        for (int i = start; i <= numberTo; i++) {
+        if (isPrime(i)) {
+            //std::cout << i << std::endl;
+            listOfPrimes.emplace_back(i);
+        }
+    }
+    //cout<<"listPrime generation done"<<endl;
+
+    return listOfPrimes;
+    }else{
+        cout<<"Error invalid range."<<endl;
+        listOfPrimes.emplace_back(-1);
+        return listOfPrimes;
+    }
+    
+}
+
+
+//List of prime number lessthan n using Seive of erosthenos.
+void ListOfPrimeUsingSeive(int numberTo){
+    vector<bool> ListPrime(numberTo+1,true);
+    ListPrime[0] = ListPrime[1] = false;
+    for(int num = 2 ; num<=numberTo; num++){
+        if(ListPrime[num]){
+            //this num is marked as prime number. now mark multiple of num as nonPrime.
+            for(int i = num+1; i <=numberTo; i++){
+                if(i%num ==0){
+                    ListPrime[i] = false;
+                }
+            }
+        }else{
+            continue;
+        }
+    }
+    for(int i = 0 ; i<ListPrime.size() ; i++){
+        if(ListPrime[i]==1){
+            cout<<i<<" ";
+        }
+    }
+}
+int main() {
+    // cout<<"listing all the prime number: "<<endl;
+    // vector<int> list = ListPrime(15,90);
+
+    // for(int i = 0; i< list.size(); i++){
+    //     cout<<list[i]<<endl;
+    // }
+    ListOfPrimeUsingSeive(17);
+    return 0;
+}
