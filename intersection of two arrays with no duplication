@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+void printArray(vector<int> ans){
+    int size = ans.size();
+    for(int i =0; i<size; i++){
+        cout<<ans[i]<<" ";
+    }cout<<endl;
+}
+int main(){
+    vector<int> a = {54,29,1,2,3,4,5};
+    vector<int> b = {3,5,9,14,32,5};
+    vector<int>ans;
+    for(auto i : a){
+        ans.emplace_back(i);
+    }
+    for(auto i : b){
+        ans.emplace_back(i);
+    }
+    for(auto i : ans){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+    int arr[55] = {0};
+    vector<int>FinalAns;
+    for(int i = 0 ; i< ans.size() ; i++ ){
+        int value = ans[i];
+        
+        if(arr[value] == 0){
+            FinalAns.emplace_back(value);
+            arr[value] = 1;
+        }
+    }
+
+    for(auto i : FinalAns){
+        cout<<i<<" ";
+    }
+    
+   
+   
+
+    
+    return 0 ;
+}
