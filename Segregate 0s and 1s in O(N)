@@ -1,0 +1,30 @@
+https://practice.geeksforgeeks.org/problems/segregate-0s-and-1s5106/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int arr[] = {0, 1, 1, 0, 1, 0, 1, 0, 0};
+    int size = 9;
+    int end = size - 1;
+    int start = 0;
+
+    while (start <= end)
+    {
+        if (arr[start] == 1)
+        {   arr[start] = arr[end];
+            arr[end] = 1;
+            
+            end--;
+        }
+        else
+        {
+            start++;
+        }
+    }
+    for(auto i : arr){
+        cout<<i<<" ";
+    }cout<<endl;
+
+    return 0;
+}
