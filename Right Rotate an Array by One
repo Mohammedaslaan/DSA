@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+int main(){
+
+
+    vector<int> arr = {1,2,3,4,5,6,7};
+    int n = 7;
+    int temp = arr[0];
+    for(int i = 1 ; i<n ; i++){
+        int temp2 = arr[i];
+        arr[i] = temp;
+        temp = temp2;
+    }
+    arr[0] = temp;
+
+    for(auto i : arr){
+        cout<<i<<" ";
+    }cout<<endl;
+    return 0;
+}
