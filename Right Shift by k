@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+int main(){
+
+
+    vector<int> arr = {11,22,33,44,55,66,77,88,99};
+    int n = 9;
+    int k = 5;
+    //max 100000
+    int map[200000] = {0};
+    for(int i = 0 ; i< n ; i++){
+        map[i+k] = arr[i];
+    }
+    // map = _ _ _ _ 1 2 3 4 5 6 7  8  9  10 11 
+    //       0 1 2 3 4 5 6 7 8 9 10 11 12 13 14
+    for(int i = k ; i<n ; i++){
+        arr[i] = map[i];
+    }
+    for(int i = 0 ; i<k ; i++){
+        arr[i] = map[n+i];
+    } 
+    for(auto i : arr){
+        cout<<i<<" ";
+    }cout<<endl;
+
+
+    return 0;
+}
