@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+int main(){
+    //Time Complexity is O(N) and space Complexity O(1)
+    //visited mark method.
+    int arr[] = {1,5,2,5,5};
+    int n = 5;
+    int i = 0;
+    while(i<n){
+        int index = abs(arr[i]);
+        if(arr[index-1] >=0){
+            arr[index-1] = arr[index-1]*-1;
+        }else{
+            arr[index-1] = arr[index-1]*1;
+        }
+        i++;
+    }
+    for(int i = 0 ; i<n ; i++){
+        if(arr[i]>=0){
+            cout<<i+1<<" ";
+        }
+
+    }
+
+    
+    return 0;
+}
+
+// Sorting and Swapping method
+
+#include <iostream>
+using namespace std;
+int main(){
+
+    int arr[] = {1,5,5,5,5};
+    int n = 5;
+
+    int i = 0;
+    while(i<n){
+        cout<<"array ye hai ";
+        for(int j = 0 ; j<n; j++){
+        cout<<arr[j]<<" ";
+        }
+        int index = arr[i];
+        cout<<"index ->"<<index<<" index-1 ->"<<arr[index-1]<<endl;
+        if(arr[index-1] == index){
+            i++;
+        }else{
+            swap(arr[index-1],arr[i]);
+        }
+        
+    }
+
+    for(int i = 0 ; i<n ; i++){
+        cout<<arr[i]<<" ";
+    }cout<<endl;
+    for(int i = 0 ; i<n ; i++){
+        int value = arr[i];
+        int index = i+1;
+        if(index != value){
+            cout<<index<<" ";
+        }
+    }
+
+    return 0;
+}
+
+//mapping method.
+#include <iostream>
+using namespace std;
+int main(){
+
+    int arr[] = {1,3,5,3,3};
+    int n = 5;
+    int map[6] = {0};
+    for(int i = 0 ; i<n ; i++){
+        int value = arr[i];
+        map[value]++;
+    }
+    for(int i = 1 ; i<6; i++){
+        if(map[i] == 0){
+            cout<<i<<" ";
+        }
+    }
+
+   
+}
