@@ -1,0 +1,47 @@
+https://leetcode.com/problems/spiral-matrix/submissions/965788673/
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> ans;
+        int top = 0, left =0;
+    int buttom = matrix.size()-1, right = matrix[0].size()-1;
+
+    while(top<=buttom && left<=right){
+        if(top == buttom && left ==right && top ==left){
+             ans.emplace_back(matrix[top][left]);
+             break;
+        }
+        //Traversing top of the layer.
+        for(int j = left ; j<=right; j++){
+            //cout<<array[top][j]<<" ";
+            ans.emplace_back(matrix[top][j]);
+        }top++;
+
+        //Traversing right of the layer.
+        for(int i = top; i<=buttom; i++){
+            //cout<<array[i][right]<<" ";
+            ans.emplace_back(matrix[i][right]);
+        }right--;
+
+        if(top<=buttom){
+        //Traversing buttom of the layer.
+        for(int j = right; j>=left ; j--){
+            //cout<<array[buttom][j]<<" ";
+            ans.emplace_back(matrix[buttom][j]);
+        }buttom--;
+        }
+
+        if(left<=right){
+
+        //Traversing left of the layer.
+        for(int i = buttom; i>= top; i--){
+            //cout<<array[i][left]<<" ";
+            ans.emplace_back(matrix[i][left]);
+        }
+        left++;
+        }
+    }
+    return ans;
+    }
+};
