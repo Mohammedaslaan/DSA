@@ -1,0 +1,35 @@
+https://leetcode.com/problems/move-zeroes/submissions/965826792/
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        
+    //int arr[] = {-6,5,4,1,2,-5,8,9,-10,10};
+
+    int start = 0;
+    int n = nums.size();
+    int end = n-1;
+    int move = 0;
+    int totalZeroElement = 0;
+    for(auto i: nums){
+        if(i==0){totalZeroElement++;}
+    }
+    while(move!=totalZeroElement){
+        
+        if(nums[start]==0){
+            //moving this negative element at the end of the array.
+            //and shifting all the element to the left to make a space at the end.
+            int zeroElement = nums[start];
+            for(int i = start+1 ; i<n ; i++){
+                nums[i-1] = nums[i];
+            }
+            move++;
+            nums[n-1] = 0;
+        }else{
+            start++;
+        }
+    }
+    
+        
+    }
+};
