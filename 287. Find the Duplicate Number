@@ -1,0 +1,20 @@
+https://leetcode.com/problems/find-the-duplicate-number/submissions/899176841/
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int size = nums.size();
+        vector<int> ans(100005,0);
+        for(int i = 0 ; i<size ; i++){
+            int index = nums[i];
+            //element visited first time and not marked
+            if(ans[index] ==0){
+                ans[index] = 1;
+            }else{
+                return index;
+            }
+            
+        }
+        return -1;
+    }
+};
