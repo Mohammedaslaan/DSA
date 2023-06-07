@@ -1,0 +1,26 @@
+https://www.codingninjas.com/codestudio/problems/print-like-a-wave_893268?leftPanelTab=1
+
+#include <bits/stdc++.h> 
+vector<int> wavePrint(vector<vector<int>> arr, int nRows, int mCols)
+{   vector<int> ans;
+    int top = 0;
+    int buttom = nRows-1;
+    int col = 0;
+    bool downFlag = true;
+    while(col<=mCols-1){
+        if(downFlag){
+            for(int i = top; i<= buttom; i++){
+                ans.emplace_back(arr[i][col]);
+            }
+            col++;
+            downFlag = false;
+        }else{
+            for(int i = buttom; i>= top ; i--){
+                ans.emplace_back(arr[i][col]);
+            }
+            col++;
+            downFlag = true;
+        }
+    }
+    return ans;
+}
