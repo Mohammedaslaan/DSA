@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int oddOccurence(int arr[],int n){
+    //cout<<arr[6]<<endl;
+    int s = 0;
+    int e = n-1;
+    int mid = s + (e-s)/2;
+    while(s<=e){
+        int element = arr[mid];
+        // cout<<"-------------------"<<endl;
+        // for(int i = 0 ; i<n; i++){
+        //     cout<<arr[i]<<"-";
+        // }cout<<endl;
+        // cout<<"s->"<<s<<", "<<"e->"<<e<<endl;
+        // cout<<"mid->"<<mid<<endl;
+        // cout<<arr[mid-1]<<" "<<arr[mid]<<" "<<arr[mid+1]<<endl;
+        //cout<<arr[mid-1]<<endl;
+        if(arr[mid] != arr[mid+1] && arr[mid] != arr[mid-1] ){
+
+            return arr[mid];
+        }
+        // cout<<"aaa"<<mid<<endl;
+        // cout<<arr[mid-1]<<endl;
+        int first = 0;
+        int second = 0;
+        if(arr[mid+1] ==element){
+            first = mid;
+            second = mid+1;
+
+        }else if(arr[mid-1] ==element){
+            first = mid-1;
+            second = mid;
+        }
+        // cout<<"first index->"<<first<<" "<<"second index->"<<second<<endl;
+        // cout<<"------------------"<<endl;
+        if(first%2 == 0){
+            s = mid + 1;
+        }else{
+            e = mid -1;
+        }
+        mid = s + (e-s)/2;
+        
+    }
+    return -1;
+}
+
+int main()
+{
+    int arr[] = {1,1,2,2,3,3,4,4,600,600,2,4,4};
+    int size = 13;
+    cout<<oddOccurence(arr,13);
+
+    return 0;
+}
