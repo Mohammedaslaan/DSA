@@ -1,0 +1,76 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+void BinarySearch2D(int arr[][4] , int key, int n, int m){
+    int s = 0;
+    int e = n*m - 1;
+    int mid = s + (e-s)/2;
+    while (s<=e)
+    {
+        int rowIndex = mid /(m-1) ;
+        int colIndex = mid %(m-1);
+        int element = arr[rowIndex][colIndex];
+        cout<<"mid->"<<mid<<"with i and j "<<rowIndex<<","<<colIndex<<endl;
+        if(key == element){
+            cout<<rowIndex<<","<<colIndex<<endl;
+            return;
+        }else if(key > element){
+            s = mid +1;
+        }else{
+            e = mid-1;
+        }
+        mid = s + (e-s)/2;
+    }
+    cout<<"Key not found";
+    
+}
+int BinSearch2D(int arr[][4] , int key, int n, int m){
+    int sRow = 0;
+    int eRow = n-1;
+    int mid = sRow + (eRow-sRow)/2;
+    while(sRow<=eRow){
+        int elementFirst = arr[mid][0];
+        if(arr[mid][0] == key){
+            cout<<mid<<","<<0<<endl;
+            return -1;
+        }
+        if(elementFirst < key ){
+            if(mid != n-1){
+                if(arr[mid+1][0] > key){
+                    // mid row me element hai.
+                    for(int i = 0 ; i<m ; i++){
+                        if(arr[mid][i] == key){
+                            cout<<mid<<","<<i<<endl;
+                        }
+                    }
+                    return -1;
+                }else{
+                    sRow = mid+1;
+                }
+            }else{
+                //last row me aagye.
+                for(int i = 0 ; i<m ; i++){
+                        if(arr[mid][i] == key){
+                            cout<<mid<<","<<i<<endl;
+                        }
+                }
+                return -1;
+            }
+        }else{
+            eRow = mid-1;
+        }
+        mid = sRow + (eRow-sRow)/2;
+    }
+}
+int main() {
+    int arr[5][4] = {{1,2,3,4},
+                     {5,6,7,8,},
+                     {9,10,11,12},
+                     {13,14,15,16},
+                     {17,18,19,20}};
+    BinSearch2D(arr,14,5,4);
+
+
+    return 0;
+}
