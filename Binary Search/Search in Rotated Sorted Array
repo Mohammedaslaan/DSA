@@ -1,6 +1,6 @@
 https://leetcode.com/problems/search-in-rotated-sorted-array/
 
-class Solution {
+class Solution { 
 public:
     int LowPivot(vector<int>& nums){
         int s = 0;
