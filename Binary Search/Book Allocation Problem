@@ -1,0 +1,48 @@
+
+https://www.codingninjas.com/studio/problems/allocate-books_1090540?leftPanelTab=1
+
+
+bool isPossibleSolution(vector<int>& arr, int n, int m, int maxAllocate){
+    int pageSum = 0;
+    int counter = 1;
+    for(int i = 0 ; i<n ; i++){
+        if(arr[i] > maxAllocate){
+            return false;
+        }
+        if(pageSum + arr[i] > maxAllocate){
+            pageSum = 0;
+            pageSum = pageSum + arr[i];
+            counter++;
+            if(counter > m){
+                return false;
+            }
+        }else{
+            pageSum = pageSum + arr[i];
+        }
+    }
+    return true;
+}
+int findPages(vector<int>& arr, int n, int m) {
+    // Write your code here.
+    if(m>n){
+        return -1;
+    }
+    int s = 0;
+    int e = 0;
+    for(int i = 0 ; i<n ; i++){
+        e = e + arr[i];
+    }
+    int ans = -1;   
+    while(s<=e){
+        int mid = s + (e-s)/2;
+        // now check whether you can allocate maximum mid number of pages.
+        if(isPossibleSolution(arr,n,m,mid)){
+            ans = mid;
+            e = mid -1;
+        }else{
+            s = mid + 1;
+        }
+    }
+    return ans;
+
+}
