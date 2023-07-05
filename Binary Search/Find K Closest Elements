@@ -1,0 +1,106 @@
+https://leetcode.com/problems/find-k-closest-elements/description/
+//TWo Pointer approach.
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        int l =0;
+        int h = arr.size()-1;
+        while(h-l >= k){
+            if(x-arr[l] > arr[h]-x){
+                l++;
+            }else{
+                h--;
+            }
+        }
+        vector<int> ans;
+        for(int i = l ; i<=h ; i++){
+            ans.emplace_back(arr[i]);
+        }
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};
+
+
+meri wali binary search approach.
+class Solution {
+public:
+
+    int BinarySearch(vector<int>& arr,int x){
+        int s = 0;
+        int e = arr.size() - 1;
+        int mid = s + (e-s)/2;
+        int ans = -1;
+        while(s<=e){
+            if(arr[mid] <= x){
+                ans = mid;
+                s = mid + 1;
+            }else{
+                e = mid - 1;
+            }
+
+            mid = s + (e-s)/2;
+        }
+        return ans;
+    }
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        vector<int> ans;
+        vector<int> Finalans;
+        for(int i =0  ; i<arr.size(); i++){
+            ans.emplace_back(arr[i] - x);
+        }
+        if(ans[0] >=0){
+            //first k ans hai
+            for(int i = 0 ; i <k ; i++){
+                Finalans.emplace_back(arr[i]);
+            }
+        }else if( ans[arr.size()-1] < 0){
+            //last k ans hai
+             for(int i = 0 ; i <k ; i++){
+                Finalans.emplace_back(arr[arr.size()-1-i]);
+            }
+        }else{
+            int index = BinarySearch(arr,x);
+            if(abs(arr[index] - x) > abs(arr[index+1] -x)){
+                index = index + 1;
+            }
+            cout<<"ye index element mila hai "<<arr[index]<<" ye position hai "<<index<<endl;
+            Finalans.emplace_back(arr[index]);
+            int j = 1;
+            int p = 0;
+            int q = 0;
+            while(j < k){
+                if(index - 1 - q >= 0 && index + 1 + p < arr.size() ){
+                    if(abs(x - arr[index-1-q]) <= abs(x-arr[index+1+p])){
+                        cout<<"piche wale ko daal raha hoon "<<arr[index - 1 - q]<<endl;
+                        Finalans.emplace_back(arr[index - 1 - q]);
+                        j++;
+                        q++;
+                    }else{
+                        cout<<"aage wale ko daal raha hoon "<<arr[index + 1 + p]<<endl;
+                        Finalans.emplace_back(arr[index + 1 + p]);
+                        j++;
+                        p++;
+                    }
+                }else if(index - 1 - q < 0 && index + 1 + p < arr.size()){
+                    cout<<"aage wale ko daal raha hoon "<<arr[index + 1 + p]<<endl;
+                    Finalans.emplace_back(arr[index + 1 + p]);
+                    j++;
+                    p++;
+
+                }else if(index + 1 + p >= arr.size() && index - 1 - q >= 0 ){
+                    cout<<"piche wale ko daal raha hoon "<<arr[index - 1 - q]<<endl;
+                    Finalans.emplace_back(arr[index - 1 - q]);
+                    j++;
+                    q++;
+                }else{
+                    cout<<"break kr rha hoon."<<endl;
+                    break;
+                }
+            }
+            
+        }
+        sort(Finalans.begin(),Finalans.end());
+        return Finalans;
+    }
+};
