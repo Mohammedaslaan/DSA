@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+int BinarySearch(vector<int>& arr, int s , int e , int target){
+    int mid = s + (e-s)/2;
+    while(s<=e){
+        if(arr[mid] == target){
+            return mid;
+        }else if(arr[mid] > target){
+            e = mid - 1; 
+        }else{
+            s = mid +1;
+        }
+        mid = s + (e-s)/2;
+    }
+    return -1;
+}
+int ExponentialSearch(vector<int>& arr, int x){
+    int size = arr.size();
+    if(arr[0] == x)
+        return 0;
+    
+    int i = 1;
+    while( i<size && arr[i] <=x){
+        i = i * 2;
+    }
+    
+    return BinarySearch(arr,i/2, min(i,size-1), x);
+}
+int main(){
+    vector<int> arr = {3,4,5,6,11,13,14,15,56,70};
+    int n = arr.size();
+    cout<<ExponentialSearch(arr,0);
+ 
+    return 0;
+}
