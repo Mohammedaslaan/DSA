@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+long long FindCutSum(vector<int>& arr  , long long n , long long k ,long long mid){
+    long long cutsum = 0;
+    for(long long i = 0 ; i <n ; i++){
+        if(arr[i] > mid){
+            long long s = arr[i] - mid;
+            cutsum = cutsum + s;
+        }
+    }
+    return cutsum;
+}
+int main(){
+
+    // 5 20
+    // 4 42 40 26 46
+    vector<int> arr = {20,15,10,17};
+    long long n = arr.size();
+    
+    long long s = 0;
+    //int e = arr[n-1];
+    long long e = *max_element(arr.begin(),arr.end());
+    long long mid = s + (e-s)/2;
+    long long ans = -1;
+    long long k = 7;
+    while(s<=e){
+        long long cutSum = FindCutSum(arr,n,k,mid);
+        if(cutSum >= k){
+            ans = mid;
+            s = mid + 1;
+        }else{
+            e = mid - 1;
+        }
+        mid = s + (e-s)/2;
+    }
+
+    cout<<ans<<endl;
+    
+    return 0;
+}
