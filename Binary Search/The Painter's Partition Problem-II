@@ -1,0 +1,89 @@
+https://practice.geeksforgeeks.org/problems/the-painters-partition-problem1535/1
+
+//{ Driver Code Starts
+// driver code
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+//User function template for C++
+
+class Solution
+{
+  public:
+  bool isPossibleAllocation(int arr[], int n, int k,long long mid){
+      int count = 1;
+      long long numberOfUnitTime = 0;
+      long long i = 0;
+      for(int i = 0 ; i<n ; i++){
+          if(arr[i]>mid){
+              return false;
+          }
+          if(numberOfUnitTime + arr[i] > mid){
+              
+              //cout<<"worker-"<<count<<"ko numberOfUnitTime "<<numberOfUnitTime<<"time mil skta hai"<<endl;
+              numberOfUnitTime = 0;
+              numberOfUnitTime = numberOfUnitTime + arr[i];
+              count++;
+              if(count>k){
+                  //cout<<"count k se aage nikal gya hai false return kr rha hoon "<<count<<endl;
+                  return false;
+              }
+              
+              
+          }else{
+              numberOfUnitTime = numberOfUnitTime + arr[i];
+          }
+      }
+      return true;
+  }
+    long long minTime(int arr[], int n, int k)
+    {
+        // if(k>n){
+        //     return -1;
+        // }
+        long long s = 0;
+        long long e = 0;
+        for(long long i = 0 ; i<n ; i++){
+            e = e + arr[i];
+        }
+        long long ans = -1;
+        long long mid = s + (e-s)/2;
+        while(s<=e){
+            //cout<<"mid ye aaya hai isko allocate krne ki koshish kr rhe hai "<<mid<<endl;
+            if(isPossibleAllocation(arr,n,k,mid)){
+                //cout<<"ye "<<mid<<" allocate ho skta hai. so e ko e = mid - 1 kr rhe hai"<<endl;
+                ans = mid;
+                e = mid - 1;
+            }else{
+                //cout<<"ye "<<mid<<" allocate nhi ho skta. so e ko s = mid + 1 kr rhe hai"<<endl;
+                s = mid + 1;
+            }
+            mid = s + (e-s)/2;
+        }
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int k,n;
+		cin>>k>>n;
+		
+		int arr[n];
+		for(int i=0;i<n;i++)
+		    cin>>arr[i];
+		Solution obj;
+		cout << obj.minTime(arr, n, k) << endl;
+	}
+	return 0;
+}
+// } Driver Code Ends
