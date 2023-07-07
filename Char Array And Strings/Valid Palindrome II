@@ -1,0 +1,51 @@
+https://leetcode.com/problems/valid-palindrome-ii/description/
+
+class Solution {
+public:
+    bool rightRemove(string s){
+        int start = 0 ;
+        int end = s.length() - 1;
+        int atMostOne = 0;
+        while(start<=end){
+            if(s[start] == s[end]){
+                start++;
+                end--;
+            }else{
+                if(atMostOne == 0){
+                    s.erase(end,1);
+                    //cout<<s<<endl;
+                    end--;
+                    atMostOne++;
+                }else{
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+      bool leftRemove(string s){
+        int start = 0 ;
+        int end = s.length() - 1;
+        int atMostOne = 0;
+        while(start<=end){
+            //cout<<"start"<<s[start]<<" == "<<"end "<<s[end]<<endl;
+            if(s[start] == s[end]){
+                start++;
+                end--;
+            }else{
+                if(atMostOne == 0){
+                    s.erase(start,1);
+                    //cout<<s<<endl;
+                    end--;
+                    atMostOne++;
+                }else{
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    bool validPalindrome(string s) {
+        return rightRemove(s) || leftRemove(s);
+    }
+};
