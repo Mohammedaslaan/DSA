@@ -1,0 +1,74 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+
+bool isPossibleAllocation(vector<int>& CooksRanks, int nP,int mid){
+    int timeSum = 0;
+    int currParathaCount = 0;
+    for(int i = 0 ; i<=CooksRanks.size(); i++){
+        int R = CooksRanks[i];
+        int j = 1;
+        int timeTaken = 0;
+        while (1)
+        {
+            if(timeTaken + j*R <= mid){
+                timeTaken = timeTaken + j*R;
+                currParathaCount++;
+                j++; 
+            }else{
+                break;
+            }
+        }
+        if(currParathaCount >= nP){
+            return true;
+        }
+        
+    }
+    return false;
+
+}
+
+int MinTimeToCompleteOrder(vector<int>& CooksRanks,int nP){
+    //int p = 10;
+    //int l = CooksRanks[0];
+    //vector<int> arr = {1,2,3,4};
+    //sort(arr.begin()+1,arr.end());
+    //int n = arr.size() - 1;
+    int s = 0;
+    int highestRank = *max_element(CooksRanks.begin(),CooksRanks.end());
+    int e = highestRank * (nP*(nP+1)/2);
+    int ans = -1;
+    while(s<=e){
+        int mid = s + (e-s)/2;
+        cout<<"mid ye aaya hai "<<mid<<endl;
+        if(isPossibleAllocation(CooksRanks,nP,mid)){
+            cout<<"ye mid possible ans hai"<<mid<<endl;
+            ans = mid;
+            e = mid - 1;
+        }else{
+            s = mid + 1;
+        }
+    }
+    cout<<ans<<endl;
+}
+int main(){
+
+
+    int T; cin>>T;
+    while (T--)
+    {
+        int nP, nC;
+        cin>>nP>>nC;
+        vector<int>CooksRanks;
+        while(nC--){
+            int R; cin>>R;
+            CooksRanks.push_back(R);
+        }
+        cout<<MinTimeToCompleteOrder(CooksRanks,nP);
+    }
+    
+    
+    return 0;
+}
