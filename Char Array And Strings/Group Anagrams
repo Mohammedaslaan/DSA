@@ -1,0 +1,55 @@
+class Solution {
+public:
+    bool checkAnagam(string s,string t){
+        if(s.length() != t.length()){return false;}
+        if(s.length() == 1 && t.length() == 1){
+            return s[0] == t[0];
+        }
+        vector<int> arr(26,0);
+        vector<int> arr2(26,0);
+        for(int i = 0 ; i<s.length() ; i++){
+            char ch = s[i];
+            int index = ch - 'a';
+            arr[index]++;
+            ch = t[i];
+            index = ch -'a';
+            arr2[index]++;
+        }
+        return arr == arr2;
+
+    }
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> FinalAns;
+        if(strs.size()==1){
+            vector<string> p;
+            if(strs[0] == ""){
+                p.push_back("");
+                FinalAns.push_back(p);
+                return FinalAns ;
+            }else{
+                p.push_back(strs[0]);
+                FinalAns.push_back(p);
+                return FinalAns;
+            }
+        }
+        //vector<vector<string>> FinalAns;
+        for(int i = 0 ; i<strs.size() ; i++){
+            if(strs[i] != "A"){
+                vector<string> innerAns;
+                innerAns.push_back(strs[i]);
+                for(int j =0  ; j<strs.size() ; j++){
+                    if(i!=j){
+                        if(checkAnagam(strs[i], strs[j])){
+                            //cout<<"ye group anagram hai->";
+                            innerAns.push_back(strs[j]);
+                            strs[j] = "A";
+                        }
+                    }
+                }
+                FinalAns.push_back(innerAns);
+            }
+        }
+        return FinalAns;
+        
+    }
+};
