@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        int swapPos = 0;
+        for(int i = 0 ; i<order.length() ; i++){
+            //cout<<order[i] <<" ko dhund raha hoon."<<endl;
+            for(int j = 0 ; j <s.length() ; j++){
+                if(order[i] == s[j]){
+                    //cout<<order[i]<<" mil gya"<<endl;
+                    //cout<<order[i]<<"-"<<s[j]<<" ko is Pos se swap kra raha hoon "<<s[swapPos]<<endl;
+                    swap(s[j],s[swapPos]);
+                    swapPos++;
+                    if(swapPos >= s.length()){
+                        return s;
+                    }
+                    }
+            }
+        }
+        return s;
+        
+    }
+};
