@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        if(s.length() != t.length() ){
+            return false;
+        }
+        if((s.length() == 1 && t.length() ==1) || (s.length() == 0 && t.length() == 0)){
+            return true;
+        }
+        vector<int> arr2(128,0);
+        vector<int> arr(128,0);
+        for(int i = 0 ; i< s.length() ; i++){
+            if(arr[s[i]] == 0 && arr2[t[i]] != 1){
+                arr[s[i]] = t[i];
+                arr2[t[i]] = 1; 
+            }
+        }
+        for(int i = 0 ; i< s.length() ; i++){
+            s[i] = arr[s[i]];
+        }
+        return s == t;
+       
+    }
+};
