@@ -7,16 +7,16 @@ public:
         if((s.length() == 1 && t.length() ==1) || (s.length() == 0 && t.length() == 0)){
             return true;
         }
-        vector<int> arr2(128,0);
-        vector<int> arr(128,0);
+        vector<int> istCharMapped(128,0);
+        vector<int> Hash(128,0);
         for(int i = 0 ; i< s.length() ; i++){
-            if(arr[s[i]] == 0 && arr2[t[i]] != 1){
-                arr[s[i]] = t[i];
-                arr2[t[i]] = 1; 
+            if(Hash[s[i]] == 0 && istCharMapped[t[i]] != 1){
+                Hash[s[i]] = t[i];
+                istCharMapped[t[i]] = 1; 
             }
         }
         for(int i = 0 ; i< s.length() ; i++){
-            s[i] = arr[s[i]];
+            s[i] = Hash[s[i]];
         }
         return s == t;
        
