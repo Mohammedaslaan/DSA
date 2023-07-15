@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int gcd(int n1, int n2){
+        int ans = -1;
+        if(n1 == 0){
+            return n2;
+        }
+        if(n2 == 0){
+            return n1;
+        }
+        if(n1 >= n2){
+            int n = n1 - n2;
+            ans = gcd(n,n2);
+        }else{
+            int n = n2 - n1;
+            ans = gcd(n,n1);
+        }
+        return ans;
+    }
+    int findGCD(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int num1 = nums[0];
+        int num2 = nums[nums.size() - 1];
+        return gcd(num1,num2);
+
+        
+    }
+};
