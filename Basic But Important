@@ -1,0 +1,120 @@
+#include <bits/stdc++.h>
+using namespace std;
+int fib(int n){
+    if(n == 1){
+        //cout<<n<<" ";
+        return 0;
+    }
+    if(n == 2){
+        //cout<<n<<" ";
+        return 1;
+    }
+    
+    int ans =  fib(n-1) + fib(n-2);
+    //cout<<ans<<" ";
+    return ans;
+
+}
+int FibWithOutRec(int n){
+    if(n == 1){return 0;}
+    if(n == 2){return 1;}
+    int termMinusOne = 1;
+    int termMinusTwo = 0;
+    int ans = termMinusOne + termMinusTwo;
+    int i = 4;
+    while(i<= n){
+        termMinusTwo = termMinusOne;
+        termMinusOne = ans;
+        ans = termMinusOne + termMinusTwo;
+        i++;
+    }
+    return ans;
+}
+int factorial(int n){
+    if(n == 1){
+        return 1;
+    }
+    return n * factorial(n-1);
+}
+void counting(int n){
+    if(n == 1){
+        cout<<1<<" ";
+        return;
+    }
+    cout<<n<<" ";
+    counting(n-1);
+}
+void reverseCounting(int n){
+    if(n == 1){
+        cout<<n<<" ";
+        return;
+    }
+    reverseCounting(n-1);
+    cout<<n<<" ";
+}
+long long int PowerOfTwo(long long int n){
+    if(n == 0){
+        return 1;
+    }
+    long long int ans = 2 * PowerOfTwo(n-1);
+    return ans;
+}
+void printFibonacciSeries(int n) {
+    if (n <= 0)
+        return;
+    
+    printFibonacciSeries(n - 1);
+    cout << fib(n) << " ";
+}
+void PrintDigitNumber(int n){
+    if(n / 10 == 0){
+        cout<<n<<" ";
+        return ;
+    }
+    int digit = n % 10;
+    PrintDigitNumber(n/10);
+    cout<<digit<<" ";
+}
+int maxNumOfArray(int arr[], int size){
+    if(size == 1){
+        return arr[0];
+    }
+    int remainingMax = maxNumOfArray(arr+1,size-1);
+    int maxi = max(arr[0],remainingMax);
+    return maxi;
+}
+bool searchKey(int arr[], int size, int key){
+    if(size == 1){
+        return arr[0] == key;
+    }
+    
+    bool meraCase = arr[0] == key ? (true) : (false);
+    bool bakiKeCase = searchKey(arr+1,size-1,key);
+    return meraCase || bakiKeCase;
+}
+
+int freqkey(int arr[], int size, int key){
+    if(size == 1){
+        if(arr[0] == key){return 1;}
+        return 0;
+    }
+    int count = 0;
+    if(arr[0] == key){count++;}
+    int remainingCount = freqkey(arr+1,size-1,key);
+    return count + remainingCount;
+}
+int OccurenceOfKey(int arr[], int size, int key){
+    if(searchKey(arr,size,key)){
+        return freqkey(arr,size,key);
+    }else{
+        return 0;
+    }
+}
+int main(){
+    //int ans = fib(5);
+    //reverseCounting(5);
+    //cout<<FibWithOutRec(9);
+    int arr[] = {1,2,8,6,1,8,5,12,8,4,8};
+    cout<<OccurenceOfKey(arr,11,12);
+    return 0;
+}
