@@ -1,0 +1,23 @@
+#include <bits/stdc++.h> 
+
+void allSubsequences(string &s,int i,string ans,vector<string>& output){
+	if(i >= s.length()){
+		//cout<<ans<<" ";
+		if(ans != ""){output.push_back(ans);}
+		return ;
+	}
+	//exclude
+	allSubsequences(s,i+1,ans,output);
+	//include
+	ans.push_back(s[i]);
+	allSubsequences(s,i+1,ans,output);
+}
+vector<string> subsequences(string str){
+	vector<string> output;
+	int i = 0;
+	string ans = "";
+	allSubsequences(str,i,ans,output);
+	return output;
+
+	
+}
