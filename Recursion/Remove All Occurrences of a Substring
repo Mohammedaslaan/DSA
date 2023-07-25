@@ -1,0 +1,17 @@
+class Solution {
+public:
+    void solve(string& s, string& part){
+        auto it = s.find(part);
+        if(it == string::npos){
+            return;
+        }
+
+        int len = part.length();
+        s.erase(it,len);
+        solve(s,part);
+    }
+    string removeOccurrences(string s, string part) {
+        solve(s,part);
+        return s;
+    }
+};
