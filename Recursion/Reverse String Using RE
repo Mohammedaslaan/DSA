@@ -1,0 +1,15 @@
+class Solution {
+public:
+void solve(vector<char>& str , int s ,int e){
+    if(s > e){return;}
+    if(s == e){
+        return ;
+    }
+    swap(str[s],str[e]);
+    solve(str,++s,--e);
+}
+    void reverseString(vector<char>& s) {
+        
+        solve(s,0,s.size()-1);
+    }
+};
