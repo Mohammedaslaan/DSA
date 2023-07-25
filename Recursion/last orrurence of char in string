@@ -1,0 +1,9 @@
+void lastOccurenceOfCharInString(string& s, char& ch,int i,int& ans){
+    if(i >= s.length()){
+        return;
+    }
+    lastOccurenceOfCharInString(s,ch,i+1,ans);
+    if(s[i] == ch && ans == -1){
+        ans = i;
+    }
+}
