@@ -1,0 +1,25 @@
+class Solution {
+public:
+
+    void solve(vector<int>& prices,int& maxProfit, int& mini,int i){
+        if(i>= prices.size()){
+            return ;
+        }
+        if(prices[i] < mini){
+                mini = prices[i];
+        }
+
+        if(prices[i] - mini > maxProfit){
+            maxProfit = prices[i] - mini;
+        }
+        solve(prices,maxProfit,mini,++i);
+    }
+    int maxProfit(vector<int>& prices) {
+        int maxProfit = 0;
+        int mini = INT32_MAX;
+        solve(prices,maxProfit,mini,0);
+        return maxProfit;
+
+        
+    }
+};
