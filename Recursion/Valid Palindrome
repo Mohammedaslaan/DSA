@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool solve(string& s,int i, int e){
+        if(i>e){
+            return true;
+        }
+        if(s[i] != s[e]){
+            return false;
+        }
+
+        return (s[i] == s[e]) && solve(s,++i,--e);
+    }
+    bool isPalindrome(string s) {
+        string ans = "";
+        for(int i = 0 ; i<s.length() ; i++){
+            if(s[i] >= 'A' && s[i] <= 'Z'){
+                ans.push_back(s[i] - 'A' + 'a');
+            }else if(s[i] >= 'a' && s[i] <='z' || s[i] >='0' && s[i]<= '9'){
+                ans.push_back(s[i]);
+            }
+        }
+        cout<<ans<<endl;
+        int i = 0;
+        int e = ans.length() - 1;
+        return solve(ans,i,e);
+        
+    }
+};
