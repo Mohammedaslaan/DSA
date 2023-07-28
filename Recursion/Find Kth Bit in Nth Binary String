@@ -1,0 +1,43 @@
+class Solution {
+public:
+    void invert(string& s){
+        for(int i = 0 ; i<s.length() ;i++){
+            if(s[i] =='0'){
+                s[i] = '1';
+            }else{
+                s[i] = '0';
+            }
+        }
+    }
+    void reverse(string& s){
+        int i = 0;
+        int e = s.length() -1;
+        while(i <= e){
+            swap(s[i],s[e]);
+            i++;
+            e--;
+        }
+    }
+    string Helper(int n){
+
+        if(n == 1){
+            return "0";
+        }
+        string Sn0 = Helper(n-1);
+        string Sn = Sn0 + "1";
+        invert(Sn0);
+        reverse(Sn0);
+        Sn += Sn0;
+        return Sn;
+
+    }
+    char findKthBit(int n, int k) {
+        string Sn = Helper(n);
+        for(int i = 0 ; i < Sn.length() ; i++){
+            if(i + 1 == k){
+                return Sn[i];
+            }
+        }
+        return '0';
+    }
+};
