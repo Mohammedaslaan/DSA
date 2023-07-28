@@ -1,0 +1,22 @@
+class Solution {
+public:
+    long long int Helper(long long n, long long int pos) {
+        if (pos == n) {
+            return 1;
+        }
+        long long int ans = -1;
+        if (pos % 2 == 0) {
+            ans = (5 * Helper(n, pos + 1)) % 1000000007; // Apply modulo operation here
+        } else {
+            ans = (4 * Helper(n, pos + 1)) % 1000000007; // Apply modulo operation here
+        }
+        return ans;
+    }
+
+    int countGoodNumbers(long long n) {
+        long long int pos = 0;
+        long long int ans = Helper(n, pos);
+        cout << ans << endl;
+        return ans;
+    }
+};
