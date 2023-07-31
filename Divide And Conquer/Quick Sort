@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int partition(int* arr, int s, int e){
+    //Step 1. decide pivot element.
+    int PivotIndex = s;
+
+    //Step 2.
+    int c = 0; // counting elements less than pivot elements
+    for(int i = s + 1 ; i <=e ; i++){
+        if(arr[i] <= arr[PivotIndex]) c++;
+    }
+
+    //Step 3.
+    // right position of Pivot element is s + c;
+    swap(arr[PivotIndex],arr[s+c]);
+    PivotIndex = s + c;
+
+    //step 4.
+    //check that left of Pivot has small element and right of pivot has larger elements.
+    int i = s;
+    int j = e;
+    while( i < PivotIndex && j > PivotIndex){
+        while(arr[i] <= arr[PivotIndex]){
+            i++;
+        }
+        while(arr[j] > arr[PivotIndex]){
+            j--;
+        }
+        // A -> you found the element to swap
+        if( i < PivotIndex && j > PivotIndex ) swap(arr[i],arr[j]);
+        // B -> no need to swap.
+    }
+
+    return PivotIndex;
+}
+void quickSort(int* arr, int s, int e){
+    //base case.
+    if(s>=e) return;
+    //ekcase -> Partition Logic
+    int PivotIndexAfterPlacingRight = partition(arr,s,e);
+    int PivotIndex = PivotIndexAfterPlacingRight;
+    //recursion call
+    quickSort(arr,s,PivotIndex-1); // Pivot element left call
+    quickSort(arr,PivotIndex+1,e); // Pivot element right call
+
+
+}
+int main(){
+
+    int arr[] = {8,1,50,3,4,20,1,2,3,1,2,3,50,30};
+    int n = 14;
+
+    int s = 0;
+    int e = n - 1;
+    quickSort(arr,s,e); 
+
+    for (int i = 0; i < n; i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+    
+    return 0;
+}
