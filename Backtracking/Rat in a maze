@@ -1,0 +1,62 @@
+    #include <bits/stdc++.h>
+    using namespace std;
+
+
+    bool isSafe(int i, int j, int row,int col, int arr[][4], vector<vector<bool>>& visited ){
+        if(i<0 || i >= row || j <0 || j>=col || arr[i][j] == 0 || visited[i][j] == 1) return false;
+        return true;
+    }
+    void ratInMaze(int arr[][4],int row, int col,int i, int j,
+    vector<vector<bool>>& visited,vector<string>& path, string Output){
+
+        //base case.
+        if( i==row-1 && j ==col-1) {
+        path.push_back(Output);        
+        return;
+        }
+        
+        if(isSafe(i+1,j,row,col,arr,visited)){
+            visited[i+1][j] = true;
+            ratInMaze(arr,row,col,i+1,j,visited,path,Output + 'D'); // Down
+            visited[i+1][j] = false;
+        }
+
+        if(isSafe(i,j-1,row,col,arr,visited)){
+            visited[i][j-1] = true;
+            ratInMaze(arr,row,col,i,j-1,visited,path,Output + 'L'); // left
+            visited[i][j-1] = false;
+        }
+
+        if(isSafe(i,j+1,row,col,arr,visited)){
+            visited[i][j+1] = true;
+            ratInMaze(arr,row,col,i,j+1,visited,path,Output + 'R'); // right
+            visited[i][j+1] = false;
+        }
+
+        if(isSafe(i-1,j,row,col,arr,visited)){
+            visited[i-1][j] = true;
+            ratInMaze(arr,row,col,i-1,j,visited,path,Output + 'U'); // up
+            visited[i-1][j] = false;
+        }
+
+    }
+    int main(){
+        // string str = "abc";
+        // allPermutationWithExtraSpace(str,0);
+        // checkInclusion("ab","eidbaooo");
+        int arr[][4] = { {1,0,0,0},
+                      {1,1,0,1},
+                      {1,1,0,0},
+                      {0,1,1,1}};
+        int row = 4;
+        int col = 4; 
+        vector<vector<bool>> visited(row,vector<bool>(col,false));
+        visited[0][0] = true;
+        vector<string> path;
+        string Output = "";
+        if(arr[0][0] == 0){cout<<"Entry Position Blocked"<<endl;return 0;}
+        ratInMaze(arr,row,col,0,0,visited,path,Output);
+        if(path.size() == 0){cout<<"No Path Exist"<<endl;return 0;}
+        for(auto it : path){cout<<it<<endl;}
+        return 0;
+    }
