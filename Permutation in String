@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        vector<int> arr(26,0);
+        for(int i = 0 ; i< s1.length() ; i++){
+            int index = s1[i] - 'a';
+            arr[index]++;
+        }
+        int windowLen = s1.length();
+        int ptr1 = 0;
+        int ptr2 = windowLen - 1;
+        vector<int> arr2(26,0);
+        while(ptr2 < s2.length()){
+            
+            for(int i = ptr1 ; i<= ptr2 ; i++){
+            int index = s2[i] - 'a';
+            arr2[index]++;
+            }
+
+            if(arr2 == arr){return true;};
+            for(int i = ptr1 ; i<= ptr2 ; i++){
+            int index = s2[i] - 'a';
+            arr2[index] = 0;
+        }
+            ptr1++;
+            ptr2++;
+
+        }
+        return false;
+
+        
+    }
+};
