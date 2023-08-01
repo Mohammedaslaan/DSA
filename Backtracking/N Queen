@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+void printSolution(vector<vector<char>>& board, int n){
+    for(int i = 0 ; i< n ; i++){
+        for (int  j = 0; j < n; j++)
+        {
+            cout<< board[i][j]<<" ";
+        }cout<<endl;
+        
+    }
+}
+bool isSafe(int row, int col, vector<vector<char>>& board,int n ){
+    //check that queen can be placed at current cell.
+    //check in upper top diagonal, left and lower left diagonal.
+    int j = col-1;
+    while(j>=0){
+        if(board[row][j--] == 'Q'){return false;}
+    }
+    //checking upperLeft Diagonal
+    int i = row - 1;
+    j = col - 1;
+    while(j>=0 && i>=0){
+        if(board[i--][j--] == 'Q') return false;
+    }
+    //checking lowerLeft Diagonal
+    i = row + 1;
+    j = col - 1;
+    while(j>=0 && i < n){
+        if(board[i++][j--] == 'Q') return false;
+    }
+    return true;
+    
+}
+void solveNqueen( vector<vector<char>>& board,int col, int n){
+    //base case.
+    if(col >= n){
+        //when 4 queen placed
+        printSolution(board,n);
+        cout<<endl<<endl;
+        return;
+    }
+
+    // 1 case solve krna hai baki recursion sambhal lega.
+    for (int row = 0; row < n; row++)
+    {
+        if(isSafe(row,col,board,n)){
+            //rakhdo
+            board[row][col] = 'Q';
+            //recursion solution laega.
+            solveNqueen(board,col+1,n);
+            board[row][col] = '-'; 
+        }
+    }
+    
+}
+int main() {
+
+
+    int n = 5;
+    vector<vector<char>> board(n,vector<char>(n,'-'));
+    int col = 0;
+    solveNqueen(board,col,n);
+
+    return 0;
+}
