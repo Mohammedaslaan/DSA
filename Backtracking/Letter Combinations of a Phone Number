@@ -1,0 +1,57 @@
+class Solution {
+public:
+    vector<string> gblMap = {"-","-","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+
+    void helper(string& digits, string& ans, vector<string>& ansStore,int index){
+        //base case.
+        if(index >= digits.length()){
+            ansStore.push_back(ans);
+            return ;
+        }
+        char ch = digits[index];
+
+        string s = gblMap[ch - '0'];
+        for(int i = 0 ; i< s.length() ; i++){
+            ans = ans + s[i];
+            helper(digits, ans, ansStore, index + 1);
+            ans.pop_back();
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        vector<string> ansStore;
+        if(digits == "") return ansStore;
+        string ans;
+        int index = 0;
+        helper(digits,ans,ansStore,index);
+        return ansStore;
+    }
+};
+
+
+----------------------------------recursion without backtracking -------------------------------------------
+class Solution {
+public:
+    vector<string> gblMap = {"-","-","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+
+    void helper(string& digits, string ans, vector<string>& ansStore,int index){
+        //base case.
+        if(index >= digits.length()){
+            ansStore.push_back(ans);
+            return ;
+        }
+        char ch = digits[index];
+
+        string s = gblMap[ch - '0'];
+        for(int i = 0 ; i< s.length() ; i++){
+            helper(digits, ans+s[i], ansStore, index + 1);
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        vector<string> ansStore;
+        if(digits == "") return ansStore;
+        string ans;
+        int index = 0;
+        helper(digits,ans,ansStore,index);
+        return ansStore;
+    }
+};
