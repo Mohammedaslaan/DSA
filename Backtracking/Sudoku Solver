@@ -15,6 +15,69 @@ bool isSafe(vector<vector<char>>& board, int n, int row, int col, int value) {
     return true;
 }
 
+void solve(vector<vector<char>>& board, int n, int row, int col,vector<vector<char>>& ans,bool& ansMila) {
+    if(ansMila == true) return;
+    if (row >= n) {
+        // Printing the solved board
+        // for (int i = 0; i < 9; i++) {
+        //     for (int j = 0; j < 9; j++) {
+        //         cout << board[i][j] << " ";
+        //     }
+        //     cout << endl;
+            
+        // }cout<<endl<<endl;
+        //ans = board;
+        ansMila = true;
+        return;
+    }
+
+    if (col == n) {
+        solve(board, n, row + 1, 0,ans,ansMila);
+        return;
+    }
+
+    if (board[row][col] != '.') {
+        solve(board, n, row, col + 1,ans,ansMila);
+        return;
+    }
+
+    for (int value = 1; value <= 9; value++) {
+        if (isSafe(board, n, row, col, value)) {
+            char ch = value + '0';
+            board[row][col] = ch;
+            solve(board, n, row, col + 1,ans,ansMila);
+            if(ansMila == true) return;
+            board[row][col] = '.';
+        }
+    }
+}
+    void solveSudoku(vector<vector<char>>& board) {
+        vector<vector<char>> ans;
+        int n = 9;
+        bool ansMila = false;
+        solve(board, n, 0, 0,ans,ansMila);
+        //board = ans;
+    }
+};
+
+"-------------------------------------------------------------------------------"
+class Solution {
+public:
+
+bool isSafe(vector<vector<char>>& board, int n, int row, int col, int value) {
+    for (int i = 0; i < n; i++) {
+        if (board[row][i] == value + '0') return false;
+    }
+    for (int i = 0; i < n; i++) {
+        if (board[i][col] == value + '0') return false;
+    }
+    for (int i = 0; i < n; i++) {
+        if (board[3 * (row / 3) + (i / 3)][3 * (col / 3) + (i % 3)] == value + '0')
+            return false;
+    }
+    return true;
+}
+
 void solve(vector<vector<char>>& board, int n, int row, int col,vector<vector<char>>& ans) {
     if (row >= n) {
         // Printing the solved board
