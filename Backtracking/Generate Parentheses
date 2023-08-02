@@ -1,0 +1,47 @@
+class Solution {
+public:
+    void helper(string& ans, int nOpen, int nClose, vector<string>& ansStore){
+        //base case.
+        if(nOpen == 0 && nClose == 0){ ansStore.push_back(ans); return ;}
+        
+        //making include Open "(" call.
+        ans = ans + "(";
+        if(nOpen != 0) helper(ans, nOpen-1, nClose,ansStore);
+        //making include Close ")" call.
+        ans.pop_back(); //backtracking.
+        ans = ans + ")";
+        if(nClose > nOpen ) helper(ans, nOpen, nClose-1 ,ansStore);
+        ans.pop_back(); //backtracking.
+        
+
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ansStore;
+        string ans = "";
+        helper(ans,n,n,ansStore);
+        return ansStore;
+    }
+};
+
+
+------------------------------------recursion only without back tracking---------------------------------------------------
+class Solution {
+public:
+    void helper(string ans, int nOpen, int nClose, vector<string>& ansStore){
+        //base case.
+        if(nOpen == 0 && nClose == 0){ ansStore.push_back(ans); return ;}
+        
+        //making include Open "(" call.
+        if(nOpen != 0) helper(ans + "(", nOpen-1, nClose,ansStore);
+        //making include Close ")" call.
+        if(nClose > nOpen ) helper(ans + ")", nOpen, nClose-1 ,ansStore);
+        
+
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ansStore;
+        string ans = "";
+        helper(ans,n,n,ansStore);
+        return ansStore;
+    }
+};
