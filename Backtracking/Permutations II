@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void helper(vector<int>& s,int i,set<vector<int>> & ansStore){
+        if(i >= s.size()){
+            ansStore.insert(s);
+            return ;
+        }
+        for(int j = i ; j < s.size() ; j++){
+            swap(s[i],s[j]);
+            helper(s,i + 1,ansStore);
+            swap(s[i],s[j]);
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<vector<int>> ansStore;
+        set<vector<int>> st;
+        int i = 0;
+        helper(nums,i,st);
+        for(auto e : st){
+            ansStore.push_back(e);
+        }
+        return ansStore;
+    }
+};
