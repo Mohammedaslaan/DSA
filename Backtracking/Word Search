@@ -1,0 +1,117 @@
+class Solution {
+public:
+    
+    bool isSafe(vector<vector<char>>& board, int i, int j, int findingChar,
+    vector<vector<bool>>& map){
+
+        if( i <0 || i >= board.size() || j <0 || j >= board[0].size()) return false;
+        if(map[i][j]) return false;
+        return true;
+    }
+    void helper(vector<vector<char>>& board, int i, int j, string word, bool& ansMila,string& s, int findingChar,vector<vector<bool>>& map){
+
+        //base case.
+        if( s == word){ 
+            ansMila = true;
+            return;
+        }
+        map[i][j] = true;
+        if(isSafe(board,i+1,j,findingChar,map)){
+            //Down
+            s = s + board[i+1][j];
+            helper(board,i+1,j,word,ansMila,s,findingChar + 1,map);
+            s.pop_back();
+        }
+        if(isSafe(board,i,j+1,findingChar,map)){
+            //Right
+            s = s + board[i][j+1];
+            helper(board,i,j+1,word,ansMila,s,findingChar + 1,map);
+            s.pop_back();
+        }
+        if(isSafe(board,i,j-1,findingChar,map)){
+            //Left
+            s = s + board[i][j-1];
+            helper(board,i,j-1,word,ansMila,s,findingChar + 1,map);
+            s.pop_back();
+        }
+        if(isSafe(board,i-1,j,findingChar,map)){
+            //Up
+            s = s + board[i-1][j];
+            helper(board,i-1,j,word,ansMila,s, findingChar + 1,map);
+            s.pop_back();
+        }
+        map[i][j] = false;
+    }
+
+    bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size();
+        int n = board[0].size();
+        vector<vector<bool>> map(m,vector<bool>(n,false));
+        bool ansMila = false;
+        for(int i = 0 ; i < m ; i++){
+            for(int j = 0 ; j < n ; j++){
+                if(board[i][j] == word[0]){
+                    string s = "";
+                    s = s + board[i][j];
+                    int findingChar = 2;
+                    helper(board,i,j,word,ansMila,s,findingChar,map);
+                    if(ansMila) return true;
+                }
+            }
+        }
+        return false;
+        
+    }
+};
+
+
+
+class Solution {
+public:
+    vector<pair<int, int>> directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+    bool isSafe(vector<vector<char>>& board, int i, int j, char ch,
+                vector<vector<bool>>& map) {
+        int m = board.size();
+        int n = board[0].size();
+        return (i >= 0 && i < m && j >= 0 && j < n && !map[i][j] && board[i][j] == ch);
+    }
+
+    bool helper(vector<vector<char>>& board, int i, int j, string word,
+                int charPos, vector<vector<bool>>& map) {
+        // base case.
+        if (charPos == word.length()) {
+            return true;
+        }
+
+        map[i][j] = true;
+        for ( auto dir : directions) {
+            int nextI = i + dir.first;
+            int nextJ = j + dir.second;
+
+            if (isSafe(board, nextI, nextJ, word[charPos], map)) {
+                if (helper(board, nextI, nextJ, word, charPos + 1, map)) {
+                    return true;
+                }
+            }
+        }
+        map[i][j] = false;
+        return false;
+    }
+
+    bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size();
+        int n = board[0].size();
+        vector<vector<bool>> map(m, vector<bool>(n, false));
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == word[0]) {
+                    if (helper(board, i, j, word, 1, map)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+};
