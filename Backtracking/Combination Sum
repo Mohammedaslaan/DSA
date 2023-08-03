@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void helper(vector<int>& candidates, int target,vector<vector<int>>& ansStore
+                ,int& currSum,vector<int>& ans,int ind){
+        //base case.
+        if(currSum > target) return;
+        if(target == currSum){
+          
+            ansStore.push_back(ans);
+            return;
+        }
+
+        
+        for(int i = ind ; i<candidates.size() ; i++){
+            currSum = currSum + candidates[i];
+            ans.push_back(candidates[i]);
+            helper(candidates,target,ansStore,currSum,ans,i);
+            currSum = currSum - candidates[i];
+            ans.pop_back();
+        }
+
+
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ansStore;
+        int currSum = 0;
+        vector<int> ans;
+        int ind = 0;
+        helper(candidates,target,ansStore,currSum,ans,ind);
+        return ansStore;
+    }
+};
