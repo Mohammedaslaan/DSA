@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int maximumSubArrayhelper(vector<int>& nums, int s ,int e){
+        //base case.
+        if(s == e) {return nums[s];}
+
+        int maxLeftBorderSum = INT_MIN;
+        int maxRightBorderSum = INT_MIN;
+        int leftBorderSum = 0, rightBorderSum = 0;
+        int mid = s + (e-s)/2;
+
+        int maxLeftSum = maximumSubArrayhelper(nums,s,mid);
+        int maxRightSum = maximumSubArrayhelper(nums,mid+1,e);
+
+        
+        for(int i = mid ; i >= s ;i--){
+            leftBorderSum +=nums[i];
+            if(leftBorderSum > maxLeftBorderSum) maxLeftBorderSum = leftBorderSum;
+        }
+        for(int i = mid + 1 ; i<=e ;i++){
+            rightBorderSum += nums[i];
+        if(rightBorderSum > maxRightBorderSum) maxRightBorderSum = rightBorderSum;
+        }
+        int maxCrosBorderSum = maxRightBorderSum + maxLeftBorderSum;
+        return max(maxCrosBorderSum,max(maxLeftSum,maxRightSum));
+    }
+    int maxSubArray(vector<int>& nums) {
+        return maximumSubArrayhelper(nums,0,nums.size()-1);
+    }
+};
